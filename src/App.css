@@ -1,11 +1,11 @@
 .app {
   min-height: 100vh;
   background: #f4f8f9;
-  padding: 60px 120px 40px 80px;
+  padding: 60px 120px 120px 80px;
 }
 .title {
   font-size: 36px;
   line-height: 36px;
   font-weight: 400;
-  color: #7663f0;
+  color: #1e42e2;
 }
