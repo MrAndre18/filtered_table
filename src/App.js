@@ -49,14 +49,14 @@ function App() {
     if (text !== '') {
       const newList = list.filter(item => item.name.search(text) !== -1 || item.comment.search(text) !== -1);
 
-      newList.map(item => (
-        if (item.name.search(text) !== -1) {
-          item.name = insertMark(item.name, item.name.search(text), text.length)
-        }
-        if (item.comment.search(text) !== -1) {
-          item.comment = insertMark(item.comment, item.comment.search(text), text.length)
-        }
-      ));
+      // newList.map(item => (
+      //   if (item.name.search(text) !== -1) {
+      //     item.name = insertMark(item.name, item.name.search(text), text.length)
+      //   }
+      //   if (item.comment.search(text) !== -1) {
+      //     item.comment = insertMark(item.comment, item.comment.search(text), text.length)
+      //   }
+      // ));
       
       setFilteredList(newList);
     } else {
