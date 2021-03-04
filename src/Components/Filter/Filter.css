@@ -1,0 +1,17 @@
+.filter {
+  height: 36px;
+  width: 300px;
+}
+.filter__input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: 1px solid #748c97;
+  color: #3d4042;
+  border-radius: 4px;
+  padding: 0 8px;
+  font-size: 16px;
+}
+.filter__input:focus {
+  box-shadow: 0 0 0 3px rgba(70, 130, 219, 0.5);
+}

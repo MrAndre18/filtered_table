@@ -3,6 +3,11 @@
   background: #f4f8f9;
   padding: 60px 120px 120px 80px;
 }
+.app__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .title {
   font-size: 36px;
   line-height: 36px;

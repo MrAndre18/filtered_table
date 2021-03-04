@@ -1,24 +1,26 @@
 import React from 'react';
 import './Pagination.css';
 
-function Pagination({ totalListCount, itemsPerPage, paginate }) {
+function Pagination({ totalListCount, itemsPerPage, paginate, currentPage }) {
   let paginationNumbers = [];
   for (let i = 1; i <= Math.round(totalListCount / itemsPerPage); i++) {
     paginationNumbers.push(i)
   }
 
   const changePage = (number, curBtn) => {
-    let paginationBtns = document.querySelectorAll('.pagination__item-btn');
+    if ( number !== currentPage ) {
+      let paginationBtns = document.querySelectorAll('.pagination__item-btn');
 
-    if (!curBtn.classList.contains('pagination__item-btn_active')) {
-      paginationBtns.forEach(element => {
-        element.classList.remove('pagination__item-btn_active');
-      });
-
-      curBtn.classList.add('pagination__item-btn_active');
+      if (!curBtn.classList.contains('pagination__item-btn_active')) {
+        paginationBtns.forEach(element => {
+          element.classList.remove('pagination__item-btn_active');
+        });
+  
+        curBtn.classList.add('pagination__item-btn_active');
+      }
+  
+      paginate(number)
     }
-
-    paginate(number)
   }
 
   return (

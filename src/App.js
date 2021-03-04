@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import Filter from './Components/Filter/Filter';
 import List from './Components/List/List';
 import Pagination from './Components/Pagination/Pagination';
 
 
 function App() {
-  const [list, setList] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(50);
+  const [list, setList] = useState([]),
+        [filteredList, setFilteredList] = useState([]),
+        [currentList, setCurrentList] = useState([]),
+        [currentPage, setCurrentPage] = useState(1),
+        [itemsPerPage] = useState(50),
+        url = 'https://jsonplaceholder.typicode.com/comments';
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  }
 
-  useEffect(() => {
-    getComments();
-  }, []);
-
-  const url = 'https://jsonplaceholder.typicode.com/comments';
   const getComments = async () => {
     let response = await fetch(url);
 
@@ -33,21 +34,65 @@ function App() {
       console.error('Ошибка ', response.status)
     }
   }
+  
+  const insertMark = (listField, insertPosition, insertLength) => {
+    const markedField = listField.slice(0, insertPosition) + 
+                        '<mark>' + 
+                        listField.slice(insertPosition, insertPosition + insertLength) + 
+                        '</mark>' + 
+                        listField.slice(insertPosition + insertLength);
+
+    return markedField;
+  }
+
+  const filteringList = (text) => {
+    if (text !== '') {
+      const newList = list.filter(item => item.name.search(text) !== -1 || item.comment.search(text) !== -1);
+
+      newList.map(item => (
+        if (item.name.search(text) !== -1) {
+          item.name = insertMark(item.name, item.name.search(text), text.length)
+        }
+        if (item.comment.search(text) !== -1) {
+          item.comment = insertMark(item.comment, item.comment.search(text), text.length)
+        }
+      ));
+      
+      setFilteredList(newList);
+    } else {
+      setFilteredList([...list]);
+    }
+    console.log('list: ', list);
+    console.log('filteredList: ', filteredList);
+  }
+
+  useEffect(() => {
+    setFilteredList([...list]);
+  }, [list]);
+
+  useEffect(() => {
+    getComments();
+  }, []);
 
   let lastPageItemIndex = currentPage * itemsPerPage,
-      firstPageItemIndex = lastPageItemIndex - itemsPerPage,
-      currentList = list.slice(firstPageItemIndex, lastPageItemIndex);
+      firstPageItemIndex = lastPageItemIndex - itemsPerPage;
+
+  useEffect(() => {
+    setCurrentList(() => filteredList.slice(firstPageItemIndex, lastPageItemIndex));
+  }, [currentPage, firstPageItemIndex, lastPageItemIndex, filteredList]);
 
   return (
     <div className="app">
       <div className="app__header">
         <h1 className="title">Comments</h1>
+        <Filter filteringList = { filteringList } />
       </div>
       <List list = { currentList }/>
       <Pagination
-        totalListCount = { list.length }
+        totalListCount = { filteredList.length }
         itemsPerPage = { itemsPerPage }
         paginate = { paginate }
+        currentPage = { currentPage }
       />
     </div>
   );

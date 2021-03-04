@@ -5,16 +5,15 @@
   margin-top: 40px;
 }
 .list__header {
-  height: 30px;
+  height: 40px;
   display: flex;
   align-items: center;
   text-transform: uppercase;
   font-weight: 500;
   font-size: 12px;
   color: #748c97;
-  margin-bottom: 10px;
 }
-.list__header-number {
+.list__header-id {
   width: 50px;
   font-size: 14px;
   padding-left: 18px;
@@ -32,6 +31,8 @@
   display: flex;
   align-items: center;
   height: 100%;
+  cursor: pointer;
+  padding-bottom: 10px;
 }
 .list__header-sort-btn span {
   position: relative;
