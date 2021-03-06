@@ -8,9 +8,11 @@ import Pagination from './Components/Pagination/Pagination';
 function App() {
   const [list, setList] = useState([]),
         [filteredList, setFilteredList] = useState([]),
+        [filterText, setFilterText] = useState(''),
         [currentList, setCurrentList] = useState([]),
         [currentPage, setCurrentPage] = useState(1),
-        [itemsPerPage] = useState(50),
+        [itemsPerPage] = useState(49),
+        [isLoading, setIsLoading] = useState(true),
         url = 'https://jsonplaceholder.typicode.com/comments';
 
   const paginate = (pageNumber) => {
@@ -30,40 +32,22 @@ function App() {
         }
       });
       setList(list);
+      setIsLoading(false);
     } else {
       console.error('Ошибка ', response.status)
     }
   }
-  
-  const insertMark = (listField, insertPosition, insertLength) => {
-    const markedField = listField.slice(0, insertPosition) + 
-                        '<mark>' + 
-                        listField.slice(insertPosition, insertPosition + insertLength) + 
-                        '</mark>' + 
-                        listField.slice(insertPosition + insertLength);
-
-    return markedField;
-  }
 
   const filteringList = (text) => {
+    setFilterText(text);
+
     if (text !== '') {
       const newList = list.filter(item => item.name.search(text) !== -1 || item.comment.search(text) !== -1);
 
-      // newList.map(item => (
-      //   if (item.name.search(text) !== -1) {
-      //     item.name = insertMark(item.name, item.name.search(text), text.length)
-      //   }
-      //   if (item.comment.search(text) !== -1) {
-      //     item.comment = insertMark(item.comment, item.comment.search(text), text.length)
-      //   }
-      // ));
-      
       setFilteredList(newList);
     } else {
       setFilteredList([...list]);
     }
-    console.log('list: ', list);
-    console.log('filteredList: ', filteredList);
   }
 
   useEffect(() => {
@@ -74,8 +58,11 @@ function App() {
     getComments();
   }, []);
 
+  // Не выводятся элементы, если их меньше itemsPerPage
+
   let lastPageItemIndex = currentPage * itemsPerPage,
       firstPageItemIndex = lastPageItemIndex - itemsPerPage;
+
 
   useEffect(() => {
     setCurrentList(() => filteredList.slice(firstPageItemIndex, lastPageItemIndex));
@@ -87,13 +74,20 @@ function App() {
         <h1 className="title">Comments</h1>
         <Filter filteringList = { filteringList } />
       </div>
-      <List list = { currentList }/>
-      <Pagination
-        totalListCount = { filteredList.length }
-        itemsPerPage = { itemsPerPage }
-        paginate = { paginate }
-        currentPage = { currentPage }
+      <List
+        list = { currentList }
+        filterText = { filterText }
+        isLoading = { isLoading }
       />
+      { filteredList.length > itemsPerPage && (
+        <Pagination
+          totalListCount = { filteredList.length }
+          itemsPerPage = { itemsPerPage }
+          paginate = { paginate }
+          currentPage = { currentPage }
+        />
+      )
+      }
     </div>
   );
 }

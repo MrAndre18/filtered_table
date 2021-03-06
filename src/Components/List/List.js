@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './List.css';
 import ListItem from './List-item/ListItem';
+import Loader from '../Loader/Loader';
 
-function List({ list }) {
+function List({ list, filterText, isLoading }) {
   const [sortedList, setSortedList] = useState([]);
 
   useEffect(() => {
@@ -94,16 +95,21 @@ function List({ list }) {
         </div>
       </div>
 
+      { isLoading && <Loader /> }
       <ul className="list__body">
-        {
-          sortedList.map(item => (
-            <ListItem
-              key={item.id}
-              id={item.id}
-              name={item.name}
-              comment={item.comment}
-            />
-          ))
+        { sortedList.length ? (
+            sortedList.map(item => (
+              <ListItem
+                key={item.id}
+                id={item.id}
+                name={item.name}
+                comment={item.comment}
+                filterText = { filterText }
+              />
+            ))
+          ) : isLoading ? null : (
+            <p className="no-comments">There are no comments</p>
+          )
         }
       </ul>
     </div>

@@ -1,6 +1,4 @@
 .list {
-  display: flex;
-  flex-direction: column;
   font-size: 14px;
   margin-top: 40px;
 }
@@ -34,6 +32,9 @@
   cursor: pointer;
   padding-bottom: 10px;
 }
+.list__header-sort-btn:hover {
+  color: #5e7bff;
+}
 .list__header-sort-btn span {
   position: relative;
 }
@@ -59,4 +60,14 @@
 .list__header-sort-btn.sort-desc span::after {
   display: block;
   transform: rotate(180deg);
+}
+.list__body {
+  display: flex;
+  flex-direction: column;
+}
+.no-comments {
+  font-size: 26px;
+  color: #423d3d;
+  margin-top: 40px;
+  font-weight: 500;
 }
