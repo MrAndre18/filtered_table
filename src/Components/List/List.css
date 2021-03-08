@@ -44,8 +44,8 @@
   color: #1e42e2;
 }
 .list__header-sort-btn span::after {
-  content: '';
-  background: url('../../img/caret.svg');
+  content: "";
+  background: url("../../img/caret.svg");
   background-size: cover;
   display: none;
   position: absolute;
@@ -70,4 +70,55 @@
   color: #423d3d;
   margin-top: 40px;
   font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+  .list__header-name {
+    width: 23%;
+    margin-right: 2%;
+  }
+  .list__header-comment {
+    width: calc(100% - 25% - 40px);
+  }
+}
+
+@media (max-width: 768px) {
+  .list {
+    font-size: 12px;
+    margin-top: 25px;
+  }
+  .list__header {
+    font-size: 11px;
+  }
+  .list__header-id {
+    width: 36px;
+    font-size: 12px;
+    padding-left: 12px;
+    margin-right: 6px;
+  }
+  .list__header-name {
+    width: 28%;
+    margin-right: 2%;
+  }
+  .list__header-comment {
+    width: calc(100% - 25% - 42px);
+  }
+}
+@media (max-width: 530px) {
+  .list__header {
+    height: 34px;
+  }
+  .list__header-sort-btn {
+    padding-bottom: 6px;
+  }
+  .list__header-id {
+    padding-left: 10px;
+  }
+  .list__header-name {
+    width: 33%;
+    margin-right: 2%;
+  }
+  .list__header-comment {
+    width: calc(100% - 30% - 40px);
+  }
 }

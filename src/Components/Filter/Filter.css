@@ -15,3 +15,22 @@
 .filter__input:focus {
   box-shadow: 0 0 0 3px rgba(70, 130, 219, 0.5);
 }
+
+@media (max-width: 768px) {
+  .filter {
+    height: 26px;
+    width: 180px;
+  }
+  .filter__input {
+    font-size: 12px;
+  }
+}
+@media (max-width: 425px) {
+  .filter {
+    height: 24px;
+    width: 150px;
+  }
+  .filter__input {
+    font-size: 12px;
+  }
+}

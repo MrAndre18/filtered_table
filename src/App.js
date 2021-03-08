@@ -11,7 +11,7 @@ function App() {
         [filterText, setFilterText] = useState(''),
         [currentList, setCurrentList] = useState([]),
         [currentPage, setCurrentPage] = useState(1),
-        [itemsPerPage] = useState(49),
+        [itemsPerPage] = useState(50),
         [isLoading, setIsLoading] = useState(true),
         url = 'https://jsonplaceholder.typicode.com/comments';
 
@@ -58,11 +58,8 @@ function App() {
     getComments();
   }, []);
 
-  // Не выводятся элементы, если их меньше itemsPerPage
-
   let lastPageItemIndex = currentPage * itemsPerPage,
       firstPageItemIndex = lastPageItemIndex - itemsPerPage;
-
 
   useEffect(() => {
     setCurrentList(() => filteredList.slice(firstPageItemIndex, lastPageItemIndex));

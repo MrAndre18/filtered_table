@@ -3,7 +3,7 @@ import './Pagination.css';
 
 function Pagination({ totalListCount, itemsPerPage, paginate, currentPage }) {
   let paginationNumbers = [];
-  for (let i = 1; i <= Math.round(totalListCount / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(totalListCount / itemsPerPage); i++) {
     paginationNumbers.push(i)
   }
 
